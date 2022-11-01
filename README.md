@@ -17,3 +17,5 @@ of the request with two ISO 8601 UTC timestamps in the following format:
 Results are returned in the body of the POST response.  
 
 **how to RECEIVE data:**  Manually enter timestamps into the main page and press the submit button to submit a form containing the timestamps in a POST request. The results will then be displayed on the main page. 
+Sequence Diagram:
+![Sequence Diagram](https://raw.githubusercontent.com/markhgr/cs361-Assignment-8/main/static/sequence%20diagram.png)
