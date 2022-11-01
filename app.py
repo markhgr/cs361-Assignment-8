@@ -45,7 +45,7 @@ def main():
     return render_template('app.html')
 
 
-@app.route("/calculate_time/", methods = ['POST'])
+@app.route("/calculate_time", methods = ['POST'])
 def process_request():
     timestamps = request.get_json
 
