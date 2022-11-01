@@ -10,8 +10,9 @@
 
   </head>
 
-  <h1>Returns the difference in time between two timestamps</h1>
-  <h3>Enter two timestamps into the form below and press submit or send a POST request containing JSON with the UTC timestamps to http://hagermosu.pythonanywhere.com/calculate_time</h3>
+  <h1>Time Tracker</h1>
+  <p>Calculate the amount of time that has elapsed between two timestamps.</p>
+  <p>Enter two timestamps into the form below and press submit or send a POST request containing JSON with two UTC timestamps to http://hagermosu.pythonanywhere.com/calculate_time</p>
   <body>
     <div class="container">
 
@@ -22,7 +23,7 @@
             <input type="datetime-local" id="end_time" name="end_time">
             <input type="submit" value="Submit">
           </form>
-          <h5> {{ message }} </h5>
+          <h5> Start time was {{ start_time }} and end time was {{ end_time }} ! </h5>
     </div>
 
 
