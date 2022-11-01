@@ -27,7 +27,7 @@ def main():
         # this is is assuming that the end timestamp always occurs after the first timestamp.
         # will need to be improved with error checking.
         time_delta = end_datetime - start_datetime
-        return render_template('app.html', time_elapsed = time_delta)
+        return render_template('app.html', message = "Time elapsed: ", time_elapsed = time_delta)
     return render_template('app.html')
 
 @app.route("/calculate_time", methods = ['POST'])
