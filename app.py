@@ -11,6 +11,25 @@ from flask import Flask, render_template, request
 import json  # used to open timestamp arrays
 from datetime import datetime  # used to calculate time difference
 
+def get_time_delta(start_iso, end_iso):
+    """
+    Converts ISO 8601 date strings to python datetime objects.
+    Then subtracts the start datetime object from the end
+    datetime object and returns the resulting timedelta object,
+    representing how much time has passed from start to finish.
+    """
+
+    # convert the start and end times to python's datetime format
+    start_datetime = datetime.fromisoformat(start_iso)
+    end_datetime = datetime.fromisoformat(end_iso)
+
+    # get the difference by subtracting the start time from the end time.
+    # this is is assuming that the end timestamp always occurs after the first timestamp.
+    # will need to be improved with error checking.
+    time_delta = start_datetime - end_datetime
+
+    return time_delta
+
 app = Flask(__name__)
 
 @app.route("/", methods = ['POST', 'GET'])
@@ -19,14 +38,9 @@ def main():
         # get the start and end times as returned in ISO format from the html
         start_time_iso = request.form['start_time']
         end_time_iso = request.form['end_time']
-        # convert the start and end times to python's datetime format
-        start_datetime = datetime.fromisoformat(start_time_iso)
-        end_datetime = datetime.fromisoformat(end_time_iso)
 
-        # get the difference by subtracting the start time from the end time.
-        # this is is assuming that the end timestamp always occurs after the first timestamp.
-        # will need to be improved with error checking.
-        time_delta = end_datetime - start_datetime
+        time_delta = get_time_delta(start_time_iso, end_time_iso)
+
         return render_template('app.html', message = "Time elapsed: ", time_elapsed = time_delta)
     return render_template('app.html')
 
