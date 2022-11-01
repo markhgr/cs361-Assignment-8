@@ -12,7 +12,14 @@
 
   <h1>Time Tracker</h1>
   <p>Calculate the amount of time that has elapsed between two timestamps.</p>
-  <p>Enter two timestamps into the form below and press submit or send a POST request containing JSON with two UTC timestamps to http://hagermosu.pythonanywhere.com/calculate_time</p>
+  <p>Enter two timestamps into the form below and press submit or send a POST request to http://hagermosu.pythonanywhere.com/calculate_time containing JSON with two <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+    UTC timestamps in the following format: </p>
+  <code> 
+    { 
+    "start_time" : ISO 8601 timestamp #1,
+    <p>"end_time"   : ISO 8601 timestamp #2
+    }       </p>
+</code>
   <body>
     <div class="container">
 
