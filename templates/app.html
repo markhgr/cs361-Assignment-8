@@ -11,5 +11,21 @@
   </head>
 
   <h1>Returns the difference in time between two timestamps</h1>
+  <h3>Enter two timestamps into the form below and press submit or send a POST request containing JSON with the UTC timestamps to http://hagermosu.pythonanywhere.com/calculate_time</h3>
+  <body>
+    <div class="container">
 
+        <form method="post">
+            <label for="fname">Start Time:</label><br>
+            <input type="datetime-local" id="start_time" name="start_time"><br>
+            <label for="lname">End Time:</label><br>
+            <input type="datetime-local" id="end_time" name="end_time">
+            <input type="submit" value="Submit">
+          </form>
+          <h5> {{ message }} </h5>
+    </div>
+
+
+  </body>
   
+

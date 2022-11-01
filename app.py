@@ -15,7 +15,11 @@ app = Flask(__name__)
 
 @app.route("/", methods = ['POST', 'GET'])
 def main():
-    print("Hello World")    
+    if request.method == 'POST':
+        start_time = request.form['start_time']
+        end_time = request.form['end_time']
+
+        return render_template('app.html', message="OK!")
     return render_template('app.html')
 
 @app.route("/calculate_time", methods = ['POST'])
