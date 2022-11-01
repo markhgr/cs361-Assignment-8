@@ -17,13 +17,13 @@ app = Flask(__name__)
 def main():
     if request.method == 'POST':
         # get the start and end times as returned in ISO format from the html
-        start_iso = request.form['start_time']
-        end_time = request.form['end_time']
+        start_time_iso = request.form['start_time']
+        end_time_iso = request.form['end_time']
         # convert the start and end times to python's datetime format
-        start_time = datetime.fromisoformat(start_time)
-        end_time = datetime.fromisoformat(end_time)
+        start_datetime = datetime.fromisoformat(start_time_iso)
+        end_datetime = datetime.fromisoformat(end_time_iso)
 
-        return render_template('app.html', start_time = start_time, end_time = end_time)
+        return render_template('app.html', start_time = start_datetime, end_time = end_datetime)
     return render_template('app.html')
 
 @app.route("/calculate_time", methods = ['POST'])
