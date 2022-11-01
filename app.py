@@ -26,7 +26,7 @@ def get_time_delta(start_iso, end_iso):
     # get the difference by subtracting the start time from the end time.
     # this is is assuming that the end timestamp always occurs after the first timestamp.
     # will need to be improved with error checking.
-    time_delta = start_datetime - end_datetime
+    time_delta = end_datetime - start_datetime
 
     return time_delta
 
@@ -38,18 +38,21 @@ def main():
         # get the start and end times as returned in ISO format from the html
         start_time_iso = request.form['start_time']
         end_time_iso = request.form['end_time']
-
+        # call our function to get the time delta
         time_delta = get_time_delta(start_time_iso, end_time_iso)
 
         return render_template('app.html', message = "Time elapsed: ", time_elapsed = time_delta)
     return render_template('app.html')
 
-@app.route("/calculate_time", methods = ['POST'])
+
+@app.route("/calculate_time/", methods = ['POST'])
 def process_request():
-    time_request = request.get_json()
-    # get the name submitted from the text box
-    if request.method == 'POST':
-        # will turn True if input is invalid
-        errors = False
-        print("TEST")
-    return render_template('app.html')
+    timestamps = request.get_json
+
+    # read the start and end times in ISO format
+    start_time_iso = timestamps['start_time']
+    end_time_iso = timestamps['end_time']
+
+    time_delta = get_time_delta(start_time_iso, end_time_iso)
+
+    return time_delta
