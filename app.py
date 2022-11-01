@@ -13,10 +13,14 @@ import time  # used to calculate time difference
 
 app = Flask(__name__)
 
+@app.route("/", methods = ['POST', 'GET'])
+def main():
+    print("Hello World")    
+    return render_template('app.html')
 
 @app.route("/calculate_time", methods = ['POST'])
-def main():
-    #time_request = request.get_json()
+def process_request():
+    time_request = request.get_json()
     # get the name submitted from the text box
     if request.method == 'POST':
         # will turn True if input is invalid
