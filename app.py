@@ -47,7 +47,7 @@ def main():
 
 @app.route("/calculate_time", methods = ['POST'])
 def process_request():
-    timestamps = request.get_json
+    timestamps = request.get_json()
 
     # read the start and end times in ISO format
     start_time_iso = timestamps['start_time']
