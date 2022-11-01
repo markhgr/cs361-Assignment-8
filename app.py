@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 @app.route("/calculate_time", methods = ['POST'])
 def main():
-    time_request = request.get_json()
+    #time_request = request.get_json()
     # get the name submitted from the text box
     if request.method == 'POST':
         # will turn True if input is invalid
