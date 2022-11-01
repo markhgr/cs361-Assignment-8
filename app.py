@@ -23,7 +23,11 @@ def main():
         start_datetime = datetime.fromisoformat(start_time_iso)
         end_datetime = datetime.fromisoformat(end_time_iso)
 
-        return render_template('app.html', start_time = start_datetime, end_time = end_datetime)
+        # get the difference by subtracting the start time from the end time.
+        # this is is assuming that the end timestamp always occurs after the first timestamp.
+        # will need to be improved with error checking.
+        time_delta = end_datetime - start_datetime
+        return render_template('app.html', time_elapsed = time_delta)
     return render_template('app.html')
 
 @app.route("/calculate_time", methods = ['POST'])
