@@ -9,11 +9,14 @@ https://www.digitalocean.com/community/tutorials/processing-incoming-request-dat
 """
 from flask import Flask, render_template, request
 import json  # used to open timestamp arrays
+import requests # used to query partner's microservice
 from datetime import datetime  # used to calculate time difference
 
 def get_time_delta(start_iso, end_iso):
     """
-    Converts ISO 8601 date strings to python datetime objects.
+    Reads the JSON containing a runner's start and end
+    marathon times formattted as ISO 8601 date strings
+    and converts these to python datetime objects.
     Then subtracts the start datetime object from the end
     datetime object and returns the resulting timedelta object,
     representing how much time has passed from start to finish.
@@ -35,11 +38,17 @@ app = Flask(__name__)
 @app.route("/", methods = ['POST', 'GET'])
 def main():
     if request.method == 'POST':
-        # get the start and end times as returned in ISO format from the html
-        start_time_iso = request.form['start_time']
-        end_time_iso = request.form['end_time']
+        # get the first and last name to query times from Richard's microservice
+        f_name = request.form['fname']
+        l_name = request.form['lname']
+
+        name_search = [f_name, l_name]
+        
+        try:
+            time_delta = get_time_delta(name_search)
+        except:
+            time_delta = "Error: runner not found"
         # call our function to get the time delta
-        time_delta = get_time_delta(start_time_iso, end_time_iso)
 
         return render_template('app.html', message = "Time elapsed: ", time_elapsed = time_delta)
     return render_template('app.html')
