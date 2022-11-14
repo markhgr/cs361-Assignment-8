@@ -55,4 +55,8 @@ def process_request():
     
     time_delta = get_time_delta(start_time_iso, end_time_iso)
     # return the time difference in the body of the POST request
-    return f'{ "time_delta":"{time_delta}"}'
+
+    results = { "time_delta" : {time_delta} }
+    results_json = json.dumps(results)
+
+    return results_json
