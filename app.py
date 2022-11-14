@@ -11,8 +11,12 @@ from flask import Flask, render_template, request
 import json  # used to open timestamp arrays
 import requests # used to query partner's microservice
 from datetime import datetime  # used to calculate time difference
+import dateutil.parser # used to read iso datetimes from JSON
 
-def get_time_delta(start_iso, end_iso):
+# import our call_microservice function
+from call_microservice import *
+
+def get_time_delta(race_times):
     """
     Reads the JSON containing a runner's start and end
     marathon times formattted as ISO 8601 date strings
@@ -23,8 +27,9 @@ def get_time_delta(start_iso, end_iso):
     """
 
     # convert the start and end times to python's datetime format
-    start_datetime = datetime.fromisoformat(start_iso)
-    end_datetime = datetime.fromisoformat(end_iso)
+    start_datetime = dateutil.parser.parse(race_times[0])
+
+    end_datetime = dateutil.parser.parse(race_times[1])
 
     # get the difference by subtracting the start time from the end time.
     # this is is assuming that the end timestamp always occurs after the first timestamp.
@@ -41,14 +46,16 @@ def main():
         # get the first and last name to query times from Richard's microservice
         f_name = request.form['fname']
         l_name = request.form['lname']
-
-        name_search = [f_name, l_name]
-        
+        # get the start and end times from the race from the microservice
+        race_times = call_microservice(f_name, l_name)
+        # try getting the time delta using our function
+        print(race_times)
         try:
-            time_delta = get_time_delta(name_search)
+            time_delta = get_time_delta(race_times)
         except:
+            # if it doesn't work then we can assume the name search did not succeed.
+            print("ERORR")
             time_delta = "Error: runner not found"
-        # call our function to get the time delta
 
         return render_template('app.html', message = "Time elapsed: ", time_elapsed = time_delta)
     return render_template('app.html')
