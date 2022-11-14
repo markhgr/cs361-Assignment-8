@@ -55,4 +55,4 @@ def process_request():
 
     time_delta = get_time_delta(start_time_iso, end_time_iso)
     # return the time difference in the body of the POST request
-    return f"time delta: {time_delta}"
+    return f'{ "time delta":"{time_delta}"}'
